@@ -1,6 +1,11 @@
 pipeline {
     agent any
 
+    environment {
+        NODE_HOME = "${env.WORKSPACE}/node-v18.0.0-linux-x64"
+        PATH = "${NODE_HOME}/bin:${env.PATH}"
+    }
+
     stages {
         stage('Checkout') {
             steps {
@@ -13,11 +18,10 @@ pipeline {
                 # Download NodeJS binaries
                 curl -o node-v18.0.0-linux-x64.tar.xz https://nodejs.org/dist/v18.0.0/node-v18.0.0-linux-x64.tar.xz
                 tar -xf node-v18.0.0-linux-x64.tar.xz
-                export PATH=$PWD/node-v18.0.0-linux-x64/bin:$PATH
 
                 # Verify installation
-                node -v
-                npm -v
+                ${NODE_HOME}/bin/node -v
+                ${NODE_HOME}/bin/npm -v
                 '''
             }
         }
