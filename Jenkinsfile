@@ -1,11 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-        DOCKER_CREDENTIALS_ID = 'your-docker-credentials-id'
-        DOCKER_IMAGE = 'registry.gitlab.com/your-username/your-repo:latest'
-    }
-
     stages {
         stage('Checkout') {
             steps {
