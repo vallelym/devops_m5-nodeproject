@@ -10,8 +10,14 @@ pipeline {
         stage('Install NodeJS and npm') {
             steps {
                 sh '''
-                curl -sL https://deb.nodesource.com/setup_18.x | sudo -E bash -
-                sudo apt-get install -y nodejs
+                # Download NodeJS binaries
+                curl -o node-v18.0.0-linux-x64.tar.xz https://nodejs.org/dist/v18.0.0/node-v18.0.0-linux-x64.tar.xz
+                tar -xf node-v18.0.0-linux-x64.tar.xz
+                export PATH=$PWD/node-v18.0.0-linux-x64/bin:$PATH
+
+                # Verify installation
+                node -v
+                npm -v
                 '''
             }
         }
