@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    environment {
+        DOCKER_IMAGE = 'registry.gitlab.com/your-username/your-repo:latest'
+    }
+
     stages {
         stage('Checkout') {
             steps {
@@ -17,7 +21,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
-                    docker.withRegistry('https://registry.gitlab.com', DOCKER_CREDENTIALS_ID) {
+                    docker.withRegistry('https://registry.gitlab.com') {
                         docker.image('my-node-app').push('latest')
                     }
                 }
